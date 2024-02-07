@@ -29,7 +29,7 @@ public class QuickSort<T extends Comparable<T>> {
                 equal.add(item);
             }
         }
-     // Recursively sort the 'less' and 'greater' sublists
+     //  sort the less and greater sublists
         List<T> sorted = new ArrayList<>();
         sorted.addAll(sort(less));
         sorted.addAll(equal);
