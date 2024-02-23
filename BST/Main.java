@@ -30,9 +30,13 @@ public class Main {
         numberToCheck = CheckingContains(bst);
         System.out.println();
         //display the max
-        System.out.println("max number in BST: " + bst.max());
+        System.out.println("Max number in BST: " + bst.max());
         //display the min
-        System.out.println("min number in BST: " + bst.min());
+        System.out.println("Min number in BST: " + bst.min());
+        //display the size of the BST
+        System.out.println("Size of BST: " + bst.size());
+        //display if BST is empty or not
+        System.out.println("Is BST empty ?" + bst.isEmpty());
         //now use the DFS algorithms
         //using characters. this shows the BST can accept characters as well as the intergers.
         System.out.println();
