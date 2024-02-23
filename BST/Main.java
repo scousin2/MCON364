@@ -27,7 +27,12 @@ public class Main {
         int numberToCheck = CheckingContains(bst);
         //now 40 is deleted, display that to the user
         bst.remove(40);
-        numberToCheck = CheckingContains(bst); 
+        numberToCheck = CheckingContains(bst);
+        System.out.println();
+        //display the max
+        System.out.println("max number in BST: " + bst.max());
+        //display the min
+        System.out.println("min number in BST: " + bst.min());
         //now use the DFS algorithms
         //using characters. this shows the BST can accept characters as well as the intergers.
         System.out.println();
