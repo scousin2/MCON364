@@ -1,0 +1,114 @@
+
+
+package Module4;
+
+import java.util.*;
+
+public class Graphs {
+    // Test the BFS algorithm for flight routes
+    public static void main(String[] args) {
+        // Create flight routes
+        Map<String, List<FlightRoute>> routes = new HashMap<>();
+        routes.put("New York", Arrays.asList(
+                new FlightRoute("New York", "Jerusalem",500, 800),
+                //new FlightRoute("New York", "Paris", 400),
+                new FlightRoute("New York", "Tel Aviv", 500, 600)
+               // new FlightRoute("Jerusalem", "Rome", 700) // Additional route from Jerusalem to Rome
+        ));
+        routes.put("Jerusalem", Arrays.asList(
+        	    new FlightRoute("Jerusalem", "Paris", 500, 500),
+        	    new FlightRoute("Jerusalem", "Rome", 500, 700) // Additional route from Jerusalem to Rome
+        	));
+        routes.put("Paris", Arrays.asList(
+                new FlightRoute("Paris", "Rome",500,  200),
+                new FlightRoute("Paris", "London", 500, 300)
+        ));
+        routes.put("Rome", Arrays.asList(
+        	    new FlightRoute("Rome", "London", 500, 250),
+        	    new FlightRoute("Rome", "New York", 500, 1000) // Additional route from Rome to New York
+        	));
+        routes.put("Tel Aviv", Collections.singletonList(new FlightRoute("Tel Aviv", "London",500,  350)));
+        //routes.put("London", Collections.singletonList(new FlightRoute("London", "Rome", 500, 150)));
+        printAllRoutes(routes);
+        
+        
+        // Test paths that exists. 
+        testPath("New York", "Jerusalem", routes);
+        testPath("Paris", "Rome", routes);
+        testPath("Tel Aviv", "London", routes);
+        testPath("New York", "Paris", routes);
+        testPath("London", "Tel Aviv", routes);
+        
+        
+        //test path that dont exist
+        testPath("Tel Aviv", "New York", routes);
+        
+        demonstrateUseMethods(routes);
+
+        
+        
+    }
+    public static void printAllRoutes(Map<String, List<FlightRoute>> routes) {
+        System.out.println("All Possible Routes//adjacency list:");
+        System.out.println();
+        for (Map.Entry<String, List<FlightRoute>> entry : routes.entrySet()) {
+            String origin = entry.getKey();
+            List<FlightRoute> flightRoutes = entry.getValue();
+            for (FlightRoute route : flightRoutes) {
+                System.out.println("From " + origin + " to " + route.getDestination() + ", Cost: " + route.getCost());
+            }
+        }
+        System.out.println();
+        System.out.println();
+    }
+    public static void demonstrateUseMethods(Map<String, List<FlightRoute>> routes) {
+        // Create a set to keep track of visited airports
+        Set<String> visitedAirports = new HashSet<>();
+
+        // Mark New York as visited
+        markAirportAsVisited("New York", visitedAirports);
+
+        // Check if New York is marked as visited
+        boolean isNewYorkVisited = isAirportVisited("New York", visitedAirports);
+        System.out.println("Is New York visited? " + isNewYorkVisited);
+
+        // Mark Paris as visited
+        markAirportAsVisited("Paris", visitedAirports);
+
+        // Check if Paris is marked as visited
+        boolean isParisVisited = isAirportVisited("Paris", visitedAirports);
+        System.out.println("Is Paris visited? " + isParisVisited);
+
+        // Get the destination airport of the first flight from New York
+        String destinationAirport = getDestinationAirport(routes.get("New York").get(0));
+        System.out.println("First flight destination airport from New York: " + destinationAirport);
+    }
+
+    // Helper method to get the destination airport from a flight route
+    private static String getDestinationAirport(FlightRoute route) {
+        return route.getDestination();
+    }
+
+    // Helper method to mark an airport as visited
+    private static void markAirportAsVisited(String airport, Set<String> visited) {
+        visited.add(airport);
+    }
+
+    // Helper method to check if an airport is marked as visited
+    private static boolean isAirportVisited(String airport, Set<String> visited) {
+        return visited.contains(airport);
+    }
+
+    public static void testPath(String startAirport, String endAirport, Map<String, List<FlightRoute>> routes) {
+        // Perform BFS and check if there's a path from startAirport to endAirport
+        boolean pathExists = BreadthFirstSearch.breadthFirstSearch(startAirport, endAirport, routes);
+        if (pathExists) {
+            System.out.println("\nPath exists from " + startAirport + " to " + endAirport + "\n");
+        } else {
+            System.out.println("\nNo path exists from " + startAirport + " to " + endAirport + "\n");
+        }
+    }
+}
+
+
+
