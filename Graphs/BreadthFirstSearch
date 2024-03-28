@@ -46,7 +46,7 @@ public class BreadthFirstSearch {
                     String nextAirport = route.getDestination();
                     // If adjacent airport is not visited
                     if (!visited.contains(nextAirport)) {
-                        // Mark the adjacent airport, enqueue it into the queue
+                        // Mark the adjacent airport, add it into the queue
                         visited.add(nextAirport);
                         queue.add(nextAirport);
                         
@@ -70,17 +70,17 @@ public class BreadthFirstSearch {
     }
    
     
- // Helper method to retrieve the destination airport of a flight route
+ //  method to retrieve the destination airport of a flight route
     private static String getDestinationAirport(FlightRoute route) {
         return route.getDestination();
     }
 
-    // Helper method to mark an airport as visited
+    //  method to mark an airport as visited
     private static void markAirportAsVisited(String airport, Set<String> visited) {
         visited.add(airport);
     }
 
-    // Helper method to check if an airport is marked as visited
+    //  method to check if an airport is marked as visited
     private static boolean isAirportVisited(String airport, Set<String> visited) {
         return visited.contains(airport);
     }
