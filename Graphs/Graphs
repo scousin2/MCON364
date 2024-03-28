@@ -11,13 +11,11 @@ public class Graphs {
         Map<String, List<FlightRoute>> routes = new HashMap<>();
         routes.put("New York", Arrays.asList(
                 new FlightRoute("New York", "Jerusalem",500, 800),
-                //new FlightRoute("New York", "Paris", 400),
                 new FlightRoute("New York", "Tel Aviv", 500, 600)
-               // new FlightRoute("Jerusalem", "Rome", 700) // Additional route from Jerusalem to Rome
         ));
         routes.put("Jerusalem", Arrays.asList(
         	    new FlightRoute("Jerusalem", "Paris", 500, 500),
-        	    new FlightRoute("Jerusalem", "Rome", 500, 700) // Additional route from Jerusalem to Rome
+        	    new FlightRoute("Jerusalem", "Rome", 500, 700)
         	));
         routes.put("Paris", Arrays.asList(
                 new FlightRoute("Paris", "Rome",500,  200),
@@ -25,10 +23,10 @@ public class Graphs {
         ));
         routes.put("Rome", Arrays.asList(
         	    new FlightRoute("Rome", "London", 500, 250),
-        	    new FlightRoute("Rome", "New York", 500, 1000) // Additional route from Rome to New York
+        	    new FlightRoute("Rome", "New York", 500, 1000)
         	));
         routes.put("Tel Aviv", Collections.singletonList(new FlightRoute("Tel Aviv", "London",500,  350)));
-        //routes.put("London", Collections.singletonList(new FlightRoute("London", "Rome", 500, 150)));
+        
         printAllRoutes(routes);
         
         
@@ -84,17 +82,17 @@ public class Graphs {
         System.out.println("First flight destination airport from New York: " + destinationAirport);
     }
 
-    // Helper method to get the destination airport from a flight route
+    //  method to get the destination airport from a flight route
     private static String getDestinationAirport(FlightRoute route) {
         return route.getDestination();
     }
 
-    // Helper method to mark an airport as visited
+    //  method to mark an airport as visited
     private static void markAirportAsVisited(String airport, Set<String> visited) {
         visited.add(airport);
     }
 
-    // Helper method to check if an airport is marked as visited
+    //  method to check if an airport is marked as visited
     private static boolean isAirportVisited(String airport, Set<String> visited) {
         return visited.contains(airport);
     }
