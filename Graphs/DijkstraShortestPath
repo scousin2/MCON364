@@ -1,0 +1,97 @@
+package Assignment4;
+import java.util.*;
+
+public class DijkstraShortestPath {
+    static class GraphNode {
+        String airport;
+        List<Edge> neighbors;
+        boolean visited;
+        int distance;
+        GraphNode previous; //Previous vertex in the shortest path
+
+        public GraphNode(String airport) {
+            this.airport = airport;
+            this.neighbors = new ArrayList<>();
+            this.visited = false;
+            this.distance = Integer.MAX_VALUE; //Initially set distance to infinity
+            this.previous = null; //Initialize previous to null
+        }
+
+        @Override
+        public String toString() {
+            return airport; //Return the name of the airport
+        }
+    }
+
+    static class Edge {
+        GraphNode destination;
+        int weight;
+
+        public Edge(GraphNode destination, int weight) {
+            this.destination = destination;
+            this.weight = weight;
+        }
+    }
+
+    public static void dijkstra(GraphNode startVertex) {
+        startVertex.distance = 0; // Set distance of start vertex to 0
+
+        PriorityQueue<GraphNode> queue = new PriorityQueue<>(Comparator.comparingInt(v -> v.distance));
+        queue.offer(startVertex);
+
+        while (!queue.isEmpty()) {
+            GraphNode currentVertex = queue.poll();
+            currentVertex.visited = true;
+            System.out.println("Processing airport: " + currentVertex.airport + ", Distance: " + currentVertex.distance);
+
+            for (Edge edge : currentVertex.neighbors) {
+                GraphNode neighbor = edge.destination;
+                if (!neighbor.visited) {
+                    int newDistance = currentVertex.distance + edge.weight;
+                    System.out.println("Neighbor: " + neighbor.airport + ", New Distance: " + newDistance);
+
+                    if (newDistance < neighbor.distance) {
+                        neighbor.distance = newDistance;
+                        neighbor.previous = currentVertex; // Update previous vertex
+                        queue.offer(neighbor);
+                        System.out.println("Updated distance for neighbor: " + neighbor.airport + ", New Distance: " + neighbor.distance);
+                    }
+                }
+            }
+        }
+    }
+
+    public static List<GraphNode> getShortestPathTo(GraphNode target) {
+        List<GraphNode> path = new ArrayList<>();
+        for (GraphNode vertex = target; vertex != null; vertex = vertex.previous) {
+            path.add(vertex);
+        }
+        Collections.reverse(path); //Reverse the path to get it from source to target
+        return path;
+    }
+
+    public static void main(String[] args) {
+        //Create graph nodes representing airports
+        GraphNode airportA = new GraphNode("New York");
+        GraphNode airportB = new GraphNode("Paris");
+        GraphNode airportC = new GraphNode("London");
+        GraphNode airportD = new GraphNode("Rome");
+
+        //Define connections (flight routes) with their distances
+        airportA.neighbors.add(new Edge(airportB, 400));
+        airportA.neighbors.add(new Edge(airportC, 300));
+        airportB.neighbors.add(new Edge(airportD, 200));
+        airportC.neighbors.add(new Edge(airportD, 250));
+
+        dijkstra(airportA); //Compute shortest paths from New York (airportA)
+
+        //Get shortest path to Rome (airportD)
+        List<GraphNode> shortestPath = getShortestPathTo(airportD);
+
+        // Print shortest path
+        System.out.println("\n\nShortest path from New York to Rome:");
+        for (GraphNode vertex : shortestPath) {
+            System.out.print(vertex + " ");
+        }
+    }
+}
