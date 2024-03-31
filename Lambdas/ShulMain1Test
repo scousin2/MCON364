@@ -1,0 +1,32 @@
+package Module5;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
+public class ShulMain1Test {
+    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+    private final PrintStream originalOut = System.out;
+    private ShulMain1 shulMain;
+
+    @BeforeEach
+    public void setUp() {
+        shulMain = new ShulMain1();
+        
+        System.setOut(new PrintStream(outContent));
+    }
+
+    @Test
+    public void testPrintNumberOfFamilies() {
+        shulMain.printNumberOfFamilies();
+        String expectedOutput = "Number of families: 3";
+        assertEquals(expectedOutput, outContent.toString());
+    }
+    
+    // Ensure to add more tests for other methods as needed
+}
