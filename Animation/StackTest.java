@@ -9,6 +9,7 @@ import java.awt.Rectangle;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+//testing the methods
 public class StackTest {
 
     private Stack<Rectangle> stack;
