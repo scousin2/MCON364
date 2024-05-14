@@ -1,0 +1,42 @@
+package testDBConnection;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+//this class goes through the employee table and displays the info.
+public class Query {
+    
+    private static final String DATABASE_URL = "jdbc:sqlserver://localhost;" +
+                                                "databaseName=PREMIERECO;integratedSecurity=true;encrypt=true;TrustServerCertificate=true";
+
+    public static List<String[]> readAllData() {
+        final String SELECT_QUERY = "SELECT * FROM EMPLOYEE"; 
+        List<String[]> results = new ArrayList<>();
+
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL);
+             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_QUERY);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String column1Value = resultSet.getString("FNAME");
+                String column2Value = resultSet.getString("LNAME");
+                String column3Value = resultSet.getString("STREET");
+                String column4Value = resultSet.getString("CITY");
+
+
+               
+                String[] rowData = {column1Value, column2Value,column3Value,column4Value}; // Add more columns as needed
+                results.add(rowData);
+            }
+        } catch (SQLException sqlE) {
+            System.out.println("Encountered a problem: " + sqlE.getMessage());
+        }
+
+        return results;
+        
+    }
+}
