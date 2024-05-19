@@ -1,0 +1,14 @@
+.root{
+	-fx-background-color: lightbeige;
+}
+.numButtons{
+	-fx-background-color: purple;
+	-fx-text-fill: pink;
+	-fx-font-size: 35px;
+}
+
+.output{
+	-fx-background-color: lightblue;
+	-fx-font-size: 35px;
+	-fx-text-fill: purple;
+}
